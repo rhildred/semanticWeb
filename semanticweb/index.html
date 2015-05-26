@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="appname">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
+    <script>
+        var appname = angular.module('appname', []);
+        appname.controller('appCtrl', 
+          function ($scope, $http) {
+              $http.get('jobs.cshtml?location=N2T1G8&term=Web Developer').
+                success(function (data, status, headers, config) {
+                    // this callback will be called asynchronously
+                    // when the response is available
+                    var x2js = new X2JS();
+                    var jobs = x2js.xml_str2json(data);
+                    alert(jobs);
+                }).
+                error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
+          });
+    </script>
+    <title></title>
+</head>
+<body ng-controller="appCtrl">
+    <p>{{greeting.text}}, world </p>
+    <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+﻿@{
+    var sUrl = String.Format("http://www.wowjobs.ca/wowrss.aspx?q={0}&l={1}&s=r&sr=25&t=30&f=r&e=&si=A&Dup=H", 
+        Request.Params["term"], Request.Params["location"]);
+
+    WebClient wc = new WebClient();
+    Response.ContentType = "text/xml";
+    Response.Write(wc.DownloadString(sUrl));
+    
+}
