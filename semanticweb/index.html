@@ -6,27 +6,43 @@
         var appname = angular.module('appname', []);
         appname.controller('appCtrl', 
           function ($scope, $http) {
-              $http.get('jobs.cshtml?location=N2T1G8&term=Web Developer').
-                success(function (data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    var x2js = new X2JS();
-                    var jobs = x2js.xml_str2json(data);
-                    $scope.model = jobs;
-                    //alert(jobs.rss.channel.title);
-                }).
-                error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
+              $scope.location = "N2T1G8";
+              $scope.term = "Web Developer";
+              $scope.getJobs = function () {
+                  $http.get('jobs.cshtml?location=' + $scope.location + 
+                      "&term=" + $scope.term).
+                    success(function (data, status, headers, config) {
+                        // this callback will be called asynchronously
+                        // when the response is available
+                        var x2js = new X2JS();
+                        var jobs = x2js.xml_str2json(data);
+                        $scope.model = jobs;
+                        //alert(jobs.rss.channel.title);
+                    }).
+                    error(function (data, status, headers, config) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+              }
+              $scope.getJobs();
           });
     </script>
     <title></title>
 </head>
 <body ng-controller="appCtrl">
+    <input ng-model="location" placeholder="enter postal code" />
+    <input ng-model="term" placeholder="enter search term" />
+    <button ng-click="getJobs()">Get Jobs</button>
     <p>Title: {{model.rss.channel.title}}</p>
     <p>Description: {{model.rss.channel.description}}</p>
     <p>Link: <a href="{{model.rss.channel.link}}">{{model.rss.channel.link}}</a></p>
         <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
+    <div ng-repeat="item in model.rss.channel.item">
+        <p>Title: {{item.title.__cdata}}</p>
+        <p>Description: <span ng-bind="item.description.__cdata"></span></p>
+        <p>Link: <a href="{{item.link}}">{{item.link}}</a></p>
+        <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
+
+    </div>
 </body>
 </html>
