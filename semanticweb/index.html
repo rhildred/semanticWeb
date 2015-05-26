@@ -12,7 +12,8 @@
                     // when the response is available
                     var x2js = new X2JS();
                     var jobs = x2js.xml_str2json(data);
-                    alert(jobs);
+                    $scope.model = jobs;
+                    //alert(jobs.rss.channel.title);
                 }).
                 error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
@@ -23,7 +24,9 @@
     <title></title>
 </head>
 <body ng-controller="appCtrl">
-    <p>{{greeting.text}}, world </p>
-    <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
+    <p>Title: {{model.rss.channel.title}}</p>
+    <p>Description: {{model.rss.channel.description}}</p>
+    <p>Link: <a href="{{model.rss.channel.link}}">{{model.rss.channel.link}}</a></p>
+        <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
 </body>
 </html>
