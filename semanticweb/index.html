@@ -36,13 +36,11 @@
     <p>Title: {{model.rss.channel.title}}</p>
     <p>Description: {{model.rss.channel.description}}</p>
     <p>Link: <a href="{{model.rss.channel.link}}">{{model.rss.channel.link}}</a></p>
-        <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
     <div ng-repeat="item in model.rss.channel.item">
         <p>Title: {{item.title.__cdata}}</p>
         <p>Description: <span ng-bind="item.description.__cdata"></span></p>
         <p>Link: <a href="{{item.link}}">{{item.link}}</a></p>
-        <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
-
     </div>
+    <script src="https://x2js.googlecode.com/hg/xml2json.js"></script>
 </body>
 </html>
